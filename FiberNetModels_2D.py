@@ -294,13 +294,13 @@ class SyntheticDataGenerator2D:
     Z = np.zeros_like(X)
     self.points = np.concatenate([X,Y,Z],axis=-1)
 
-    # ===========================================
+# ===========================================
     self.X, self.Y = X, Y
     X_train_all = lhs(2, grid_points)
     self.X_tr = X_train_all[:,:1]
     self.Y_tr = X_train_all[:,1:]
-    self.T_train = lambda x, y: np.minimum(np.sqrt(X**2 + Y**2), 0.7*np.sqrt((X - 1)**2 + (Y - 1)**2))
-    # ===========================================
+    self.T_train = np.minimum(np.sqrt(self.X_tr**2 + self.Y_tr**2), 0.7*np.sqrt((self.X_tr - 1)**2 + (self.Y_tr - 1)**2))
+    #======================================
 
     # Create conduction velocity values
     cv = self.get_simulated_CV(X,Y)
